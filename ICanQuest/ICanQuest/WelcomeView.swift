@@ -7,19 +7,34 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct WelcomeView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack {
+            BackgroundView(filename: "color_fade_io")
+                .ignoresSafeArea()
+            
+            VStack {
+                Text("I Can")
+                    .bold()
+                    .font(.largeTitle)
+                    .fontDesign(.serif)
+                    .foregroundColor(.black)
+                Text("A quest to connect with your emotions")
+                    .font(.subheadline)
+                    .fontDesign(.serif)
+                    .italic()
+                    .foregroundColor(.black)
+
+                
+            }
+            .padding()
+
         }
-        .padding()
+
     }
 }
 
 #Preview {
-    ContentView()
+    WelcomeView()
 }
 
