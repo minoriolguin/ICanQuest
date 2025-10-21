@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct ICanQuestApp: App {
-    var body: some Scene {
-        WindowGroup {
-            WelcomeView()
+    @State private var showWelcome = true
+
+        var body: some Scene {
+            WindowGroup {
+                if showWelcome {
+                    WelcomeView {
+                        showWelcome = false
+                    }
+                } else {
+                    MenuView()
+                }
+            }
         }
-    }
 }

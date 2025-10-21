@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    var onFinish: () -> Void
+    
+    @State private var isAnimating: Bool = false
+    
     var body: some View {
         ZStack {
             BackgroundView(filename: "color_fade_io")
@@ -19,22 +23,33 @@ struct WelcomeView: View {
                     .font(.largeTitle)
                     .fontDesign(.serif)
                     .foregroundColor(.black)
-                Text("A quest to connect with your emotions")
+                Text("Quest on to discover your emotions!")
                     .font(.subheadline)
                     .fontDesign(.serif)
-                    .italic()
                     .foregroundColor(.black)
-
-                
             }
             .padding()
 
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            withAnimation(.easeInOut(duration: 1)) {
+                onFinish()
+            }
+        }
+        .onAppear {
+            isAnimating = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                withAnimation(.easeInOut(duration: 1)) {
+                    onFinish()
+                }
+            }
         }
 
     }
 }
 
 #Preview {
-    WelcomeView()
+    WelcomeView {}
 }
 
