@@ -14,6 +14,9 @@ struct WelcomeView: View {
     
     var body: some View {
         ZStack {
+            Color("BackgroundColor")
+                .ignoresSafeArea()
+            
             BackgroundView(filename: "color_fade_io")
                 .ignoresSafeArea()
             
@@ -39,7 +42,7 @@ struct WelcomeView: View {
         }
         .onAppear {
             isAnimating = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                 withAnimation(.easeInOut(duration: 1)) {
                     onFinish()
                 }
