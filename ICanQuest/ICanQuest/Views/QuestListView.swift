@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct QuestListView: View {
     let profile: UserProfile
@@ -17,10 +18,19 @@ struct QuestListView: View {
     @State private var errorMessage: String?
 
     var body: some View {
-        NavigationStack {
-            content
-                .navigationTitle("Available Quests")
-                .task { loadQuests() }
+            ZStack{
+                Image("background")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                
+                NavigationStack {
+                    content
+                        .task { loadQuests() }
+                }
+
+                .toolbarBackground(Color.clear, for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
         }
     }
 
@@ -43,14 +53,17 @@ struct QuestListView: View {
                         QuestView(quest: quest, profileId: profile.id)
                     } label: {
                         VStack(alignment: .leading, spacing: 4) {
-                            Text(quest.title).font(.headline)
-                            Text(quest.summary).font(.subheadline)
-                                .foregroundStyle(.secondary)
+                            Text(quest.title)
+                                .font(.headline)
+                                .fontDesign(.monospaced)
                         }
                     }
+                    .listRowBackground(Color.clear)
                 }
             }
             .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
+            .background(Color.clear)
         }
     }
 
@@ -70,3 +83,9 @@ struct QuestListView: View {
             }
     }
 }
+
+#Preview {
+    QuestListView(profile: UserProfile(name: "Preview User"))
+        .environmentObject(ProfileStore(try! ModelContext(.init(for: UserProfile.self))))
+}
+

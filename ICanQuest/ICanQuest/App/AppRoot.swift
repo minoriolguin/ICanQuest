@@ -11,12 +11,11 @@ struct AppRoot: View {
     @Environment(\.modelContext) private var ctx
     @StateObject private var app = AppStateStore()
     @State private var editingAvatarFor: UserProfile? = nil
+    @State private var resumeTarget: Quest? = nil
     var onSaved: () -> Void = {}
 
     var body: some View {
         ZStack {
-            Color("BackgroundColor").ignoresSafeArea()
-
             if !app.didShowWelcome {
                 WelcomeView { app.setDidShowWelcome(true) }
 
@@ -35,7 +34,11 @@ struct AppRoot: View {
                         MenuView(
                             profile: profile,
                             onBeginNewQuest: {  },
-                            onEditAvatar: { editingAvatarFor = profile }
+                            onEditAvatar: { editingAvatarFor = profile }, onResumeQuest: {
+                                handleResume(profile: profile) { q in
+                                    resumeTarget = q
+                                }
+                            }
                         )
                     }
                 }

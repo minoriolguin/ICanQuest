@@ -14,27 +14,11 @@ struct WelcomeView: View {
     
     var body: some View {
         ZStack {
-            Color("BackgroundColor")
+            Image("splash-screen")
+                .resizable()
+                .scaledToFill()
                 .ignoresSafeArea()
-            
-            BackgroundView(filename: "color_fade_io")
-                .ignoresSafeArea()
-            
-            VStack {
-                Text("I Can")
-                    .bold()
-                    .font(.largeTitle)
-                    .fontDesign(.serif)
-                    .foregroundColor(.black)
-                Text("Quest on to discover your emotions!")
-                    .font(.subheadline)
-                    .fontDesign(.serif)
-                    .foregroundColor(.black)
-            }
-            .padding()
-
         }
-        .contentShape(Rectangle())
         .onTapGesture {
             withAnimation(.easeInOut(duration: 1)) {
                 onFinish()
@@ -48,8 +32,8 @@ struct WelcomeView: View {
                 }
             }
         }
-
     }
+    
 }
 
 #Preview {

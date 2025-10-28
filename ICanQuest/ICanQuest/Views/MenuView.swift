@@ -11,15 +11,25 @@ struct MenuView: View {
     let profile: UserProfile
     var onBeginNewQuest: () -> Void
     var onEditAvatar: () -> Void
+    var onResumeQuest: () -> Void
     
     @State private var resumeQuest: Quest? = nil
 
     var body: some View {
-        VStack(spacing: 20) {
+        ZStack {
+            Image("background")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+            
+            VStack(spacing: 20) {
             HStack {
-                if let a = profile.avatar { AvatarView(avatar: a) }
+                if (profile.avatar != nil) { AvatarView() }
                 VStack(alignment: .leading) {
-                    Text("Welcome back, \(profile.name ?? "friend")!").font(.title).bold()
+                    Text("Welcome back, \(profile.name ?? "friend")!")
+                        .font(.title)
+                        .fontDesign(.monospaced)
+                        .bold()
                     Button("Edit Avatar") { onEditAvatar() }
                 }
             }
@@ -31,11 +41,8 @@ struct MenuView: View {
                 .disabled(true)
         }
         .padding()
-        .toolbarBackground(Color.clear)
-        .toolbarBackground(.visible, for: .navigationBar)
-        .navigationTitle("Menu")
         .task { resumeQuest = loadQuestToResume(for: profile) }
-
+        }
     }
     
     private func loadQuestToResume(for profile: UserProfile) -> Quest? {
@@ -47,3 +54,25 @@ struct MenuView: View {
     }
 }
 
+
+extension UserProfile {
+    static var previewSample: UserProfile {
+        UserProfile(name: "friend", avatar: Avatar(color: "blue", shape: ""))
+    }
+}
+
+extension Avatar {
+    static var sample: Avatar { Avatar(color: "blue", shape: "") }
+}
+
+#Preview("MenuView – basic") {
+    NavigationStack {
+        MenuView(
+            profile: .previewSample,
+            onBeginNewQuest: { print("Begin new quest") },
+            onEditAvatar: { print("Edit avatar") },
+            onResumeQuest: { print("Resume quest") }
+        )
+        .padding()
+    }
+}

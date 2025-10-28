@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct AvatarView: View {
-    let avatar: Avatar
     var body: some View {
         ZStack {
-            Text("")
+            Image("chickpea-happy")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200, height: 200)
+                .shadow(color: Color.black.opacity(0.2), radius: 10)
         }
         .frame(width: 120, height: 120)
     }
+}
+
+#Preview {
+    AvatarView()
 }
