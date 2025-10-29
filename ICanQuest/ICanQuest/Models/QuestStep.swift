@@ -11,5 +11,4 @@ struct QuestStep: Identifiable, Codable, Hashable {
     var id: String
     var text: String
     var prompt: String
-    var background: String
 }

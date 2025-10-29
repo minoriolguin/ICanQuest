@@ -15,20 +15,30 @@ struct QuestView: View {
 
 
     var body: some View {
-        List {
-            Section(quest.title) {
-                Text(quest.summary).foregroundStyle(.secondary)
-            }
-            Section("Steps") {
-                ForEach(quest.steps, id: \.id) { s in
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(s.text)
-
-                    }
+        ZStack {
+            Image(quest.background)
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+            
+            List {
+                Section(quest.title) {
+                    Text(quest.summary).foregroundStyle(.secondary)
                 }
+                .listRowBackground(Color.clear)
+
+//                Section("Steps") {
+//                    ForEach(quest.steps, id: \.id) { s in
+//                        VStack(alignment: .leading, spacing: 4) {
+//                            Text(s.text)
+//                            
+//                        }
+//                    }
+//                }
+//                .listRowBackground(Color.clear)
             }
+            .scrollContentBackground(.hidden)
         }
-        .navigationTitle("Quest")
     }
     
     func markStepDone(idx: Int) {
