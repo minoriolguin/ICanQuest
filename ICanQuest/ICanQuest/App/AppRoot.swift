@@ -4,14 +4,18 @@
 //
 //  Created by Minori Olguin on 2025-10-25.
 //
+
 import SwiftUI
 import SwiftData
 
 struct AppRoot: View {
     @Environment(\.modelContext) private var ctx
+    
     @StateObject private var app = AppStateStore()
     @State private var editingAvatarFor: UserProfile? = nil
     @State private var resumeTarget: Quest? = nil
+    @State private var showingSelectUser = false
+
     var onSaved: () -> Void = {}
 
     var body: some View {
@@ -21,13 +25,13 @@ struct AppRoot: View {
 
             }
             else if let profile = loadSelectedProfile() {
-                if let editing = editingAvatarFor {
+                if editingAvatarFor != nil {
                     NavigationStack {
-                        MakeAvatarView(profile: editing)
+                        EditProfileView(profile: profile)
                     }
                 } else if profile.avatar == nil {
                     NavigationStack {
-                        MakeAvatarView(profile: profile)
+                        CreateProfileView()
                     }
                 } else {
                     NavigationStack {

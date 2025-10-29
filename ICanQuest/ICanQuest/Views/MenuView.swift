@@ -30,15 +30,36 @@ struct MenuView: View {
                         .font(.title)
                         .fontDesign(.monospaced)
                         .bold()
-                    Button("Edit Avatar") { onEditAvatar() }
+                    
+                    Button("Edit Avatar") {
+                        onEditAvatar()
+                    }
+                    .foregroundColor(.black)
                 }
             }
 
-            NavigationLink("Begin a new quest") { QuestListView(profile: profile) }
-                .buttonStyle(.borderedProminent)
+                NavigationLink("Begin a new quest") {
+                    QuestListView(profile: profile)
+                }
                 
             Button("Resume quest") { }
                 .disabled(true)
+                
+                NavigationLink(destination:
+                    SelectUserView(
+                        onSelect: { profile in
+                            print("Selected profile: \(profile.name ?? "unknown")")
+                        },
+                        onCreate: { name in
+
+                            print("Created profile named: \(name)")
+                        }
+                    )
+                ) {
+                    Text("Switch Profile")
+                        .font(.title3)
+                        .fontDesign(.monospaced)
+                }
         }
         .padding()
         .task { resumeQuest = loadQuestToResume(for: profile) }
@@ -57,12 +78,8 @@ struct MenuView: View {
 
 extension UserProfile {
     static var previewSample: UserProfile {
-        UserProfile(name: "friend", avatar: Avatar(color: "blue", shape: ""))
+        UserProfile(name: "friend", avatar: "")
     }
-}
-
-extension Avatar {
-    static var sample: Avatar { Avatar(color: "blue", shape: "") }
 }
 
 #Preview("MenuView – basic") {

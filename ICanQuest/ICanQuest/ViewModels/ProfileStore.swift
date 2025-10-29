@@ -23,7 +23,7 @@ final class ProfileStore: ObservableObject {
     }
 
     @discardableResult
-    func create(name: String, avatar: Avatar? = nil) throws -> UserProfile {
+    func create(name: String, avatar: String? = nil) throws -> UserProfile {
         let p = UserProfile(name: name, avatar: avatar)
         ctx.insert(p)
         try ctx.save()

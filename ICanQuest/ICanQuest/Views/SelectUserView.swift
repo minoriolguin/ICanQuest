@@ -18,54 +18,61 @@ struct SelectUserView: View {
     @State private var name = ""
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Who’s playing?")
-                .font(.largeTitle).bold()
-                .fontDesign(.serif)
-
-            if !profiles.isEmpty {
-                List(profiles) { p in
-                    Button {
-                        onSelect(p)
-                    } label: {
-                        HStack {
-                            Text(p.name ??  "friend").font(.headline)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundStyle(.secondary)
+        NavigationStack {
+            
+            ZStack {
+                Image("background")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                
+                VStack(spacing: 16) {
+                    Text("Who’s playing?")
+                        .font(.largeTitle)
+                        .bold()
+                        .fontDesign(.monospaced)
+                    
+                    if !profiles.isEmpty {
+                        List(profiles) { p in
+                            Button {
+                                onSelect(p)
+                            } label: {
+                                HStack {
+                                    Text(p.name ??  "friend").font(.headline)
+                                    Image(systemName: "chevron.right")
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                            .listRowBackground(Color.clear)
                         }
+                        .scrollContentBackground(.hidden)
+                        .frame(maxHeight: 300)
                     }
-                    .listRowBackground(Color.clear)
+                    NavigationLink {
+                        CreateProfileView { newProfile in
+                            onSelect(newProfile)
+                        }
+                    } label: {
+                        Label("", systemImage: "plus.circle.fill")
+                            .font(.title3)
+                            .fontDesign(.monospaced)
+                            .padding()
+                    }
                 }
-                .scrollContentBackground(.hidden)
-                .frame(maxHeight: 300)
+                .padding()
             }
-
-            HStack(spacing: 8) {
-                TextField("New profile name", text: $name)
-                    .textFieldStyle(.roundedBorder)
-                    .submitLabel(.done)
-                    .onSubmit(createIfValid)
-                    .fontDesign(.serif)
-
-                Button("Add") { createIfValid() }
-                    .background(Color.clear)
-                    .buttonStyle(.borderedProminent)
-                    .disabled(!isValidName)
-                    .fontDesign(.serif)
-            }
+            
         }
-        .padding()
     }
 
-    private var isValidName: Bool {
-        !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-    }
-
-    private func createIfValid() {
-        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return }
-        onCreate(trimmed)
-        name = ""
-    }
+//    private var isValidName: Bool {
+//        !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+//    }
+//
+//    private func createIfValid() {
+//        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+//        guard !trimmed.isEmpty else { return }
+//        onCreate(trimmed)
+//        name = ""
+//    }
 }
