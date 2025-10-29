@@ -5,9 +5,9 @@
       "title": "First Day of School",
       "summary": "Practice for your first day school.",
       "steps": [
-        { "id": "s1", "text": "", "prompt": "" },
-        { "id": "s2", "text": "", "prompt": "" },
-        { "id": "s3", "text": "", "prompt": "" }
+        { "id": "s1", "text": "", "prompt": "", "background": "" },
+        { "id": "s2", "text": "", "prompt": "", "background": "" },
+        { "id": "s3", "text": "", "prompt": "", "background": "" }
       ]
     },
     {
@@ -15,9 +15,9 @@
       "title": "Confrontation with a Friend",
       "summary": "Think about emotions that come up during confrontations.",
       "steps": [
-        { "id": "s1", "text": "", "prompt": "" },
-        { "id": "s2", "text": "", "prompt": "" },
-        { "id": "s3", "text": "", "prompt": "" },
+        { "id": "s1", "text": "", "prompt": "", "background": "" },
+        { "id": "s2", "text": "", "prompt": "", "background": "" },
+        { "id": "s3", "text": "", "prompt": "", "background": "" },
       ]
     },
     {
@@ -25,9 +25,9 @@
       "title": "Losing a Game",
       "summary": "Learn about feelings when losing a game.",
       "steps": [
-        { "id": "s1", "text": "", "prompt": "" },
-        { "id": "s2", "text": "", "prompt": "" },
-        { "id": "s3", "text": "", "prompt": "" }
+        { "id": "s1", "text": "", "prompt": "", "background": "" },
+        { "id": "s2", "text": "", "prompt": "", "background": "" },
+        { "id": "s3", "text": "", "prompt": "", "background": "" }
       ]
     }
   ]
