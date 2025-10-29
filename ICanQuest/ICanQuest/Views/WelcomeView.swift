@@ -9,9 +9,7 @@ import SwiftUI
 
 struct WelcomeView: View {
     var onFinish: () -> Void
-    
-    @State private var isAnimating: Bool = false
-    
+        
     var body: some View {
         ZStack {
             Image("splash-screen")
@@ -25,7 +23,6 @@ struct WelcomeView: View {
             }
         }
         .onAppear {
-            isAnimating = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                 withAnimation(.easeInOut(duration: 1)) {
                     onFinish()
