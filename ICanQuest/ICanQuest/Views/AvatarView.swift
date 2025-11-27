@@ -10,7 +10,7 @@ import SwiftUI
 struct AvatarView: View {
     var body: some View {
         ZStack {
-            Image("chickpea-happy")
+            Image("edamame")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 200, height: 200)

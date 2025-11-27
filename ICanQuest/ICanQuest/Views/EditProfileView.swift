@@ -16,7 +16,7 @@ struct EditProfileView: View {
     @State private var selectedAvatar = ""
     @State private var username = ""
     
-    private let avatars = ["chickpea-happy", "kidney-bean-happy"]
+    private let avatars = ["chickpea-happy", "kidney-bean-happy", "edamame"]
     
     var body: some View {
         ZStack {

@@ -12,25 +12,32 @@ struct QuestListView: View {
     let profile: UserProfile
     @EnvironmentObject var profiles: ProfileStore
 
-
     @State private var quests: [Quest] = []
     @State private var isLoading = true
     @State private var errorMessage: String?
 
-    var body: some View {
-            ZStack{
-                Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                
-                NavigationStack {
-                    content
-                        .task { loadQuests() }
-                }
+    private var schoolQuests: [Quest] {
+        quests.filter { $0.background == "classroom" }
+    }
 
-                .toolbarBackground(Color.clear, for: .navigationBar)
-                .toolbarBackground(.visible, for: .navigationBar)
+    private var playgroundQuests: [Quest] {
+        quests.filter { $0.background == "playground" }
+    }
+
+    var body: some View {
+        ZStack {
+            Image("background")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+
+            NavigationStack {
+                content
+                    .navigationTitle("Choose a quest")
+                    .task { loadQuests() }
+            }
+            .toolbarBackground(Color.clear, for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
         }
     }
 
@@ -43,45 +50,82 @@ struct QuestListView: View {
                 .foregroundStyle(.red)
                 .multilineTextAlignment(.center)
                 .padding()
-        } else if quests.isEmpty {
-            Text("No quests available.")
-                .foregroundStyle(.secondary)
         } else {
-            List {
-                ForEach(quests, id: \.id) { quest in
+            HStack(spacing: 24) {
+                if let schoolQuest = schoolQuests.first {
                     NavigationLink {
-                        QuestView(quest: quest, profileId: profile.id)
+                        QuestView(quest: schoolQuest, profileId: profile.id)
                     } label: {
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(quest.title)
-                                .font(.headline)
-                                .fontDesign(.monospaced)
-                        }
+                        LocationCard(
+                            title: "Go to School",
+                            subtitle: "Practice school feelings",
+                            imageName: "classroom" // matches quest.background
+                        )
                     }
-                    .listRowBackground(Color.clear)
+                }
+
+                if let parkQuest = playgroundQuests.first {
+                    NavigationLink {
+                        QuestView(quest: parkQuest, profileId: profile.id)
+                    } label: {
+                        LocationCard(
+                            title: "Go to Playground",
+                            subtitle: "Practice park & playtime feelings",
+                            imageName: "playground"
+                        )
+                    }
                 }
             }
-            .listStyle(.insetGrouped)
-            .scrollContentBackground(.hidden)
-            .background(Color.clear)
         }
     }
 
+    // MARK: - Loading
     private func loadQuests() {
-            defer { isLoading = false }
-            guard let url = Bundle.main.url(forResource: "quests", withExtension: "json") else {
-                errorMessage = "quests.json not found in bundle."
-                return
-            }
-            do {
-                let data = try Data(contentsOf: url)
-                let decoded = try JSONDecoder().decode(QuestFile.self, from: data)
-                quests = decoded.quests
-                errorMessage = nil
-            } catch {
-                errorMessage = "Failed to load quests: \(error.localizedDescription)"
-            }
+        defer { isLoading = false }
+        guard let url = Bundle.main.url(forResource: "quests", withExtension: "json") else {
+            errorMessage = "quests.json not found in bundle."
+            return
+        }
+        do {
+            let data = try Data(contentsOf: url)
+            let decoded = try JSONDecoder().decode(QuestFile.self, from: data)
+            quests = decoded.quests
+            errorMessage = nil
+        } catch {
+            errorMessage = "Failed to load quests: \(error.localizedDescription)"
+        }
     }
+    
+    struct LocationCard: View {
+        let title: String
+        let subtitle: String
+        let imageName: String
+
+        var body: some View {
+            ZStack {
+                
+            VStack {
+                Image(imageName)
+                    .resizable()
+                    .frame(width: 200, height: 120)
+                    .clipped()
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(title)
+                        .font(.title2.weight(.bold))
+                        .foregroundColor(.white)
+                        .contentShape(Rectangle())
+                }
+                .padding()
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .shadow(radius: 8)
+            }
+            .padding()
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+        }
+    }
+
 }
 
 #Preview {
