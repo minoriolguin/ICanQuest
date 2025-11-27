@@ -27,10 +27,11 @@ struct EditProfileView: View {
             
             VStack {
                 VStack {
-                    Text("Update character?")
+                    Text("Change character?")
                         .font(
                             .largeTitle
                                 .bold()
+                                .monospaced()
                         )
                     
 
@@ -61,6 +62,8 @@ struct EditProfileView: View {
                         .font(.title3)
                         .lineLimit(3)
                         .padding()
+                        .fontDesign(.monospaced)
+
                         
                         TextField(
                             "Bean name",
@@ -70,7 +73,7 @@ struct EditProfileView: View {
                         .padding()
                         
                         Button("Save") {
-                            
+                            dismiss()
                         }
                         .buttonStyle(.borderedProminent)
                         .disabled(selectedAvatar.isEmpty || username.isEmpty)
