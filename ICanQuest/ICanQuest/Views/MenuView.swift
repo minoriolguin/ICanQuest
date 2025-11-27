@@ -4,16 +4,18 @@
 //
 //  Created by Minori Olguin on 2025-10-21.
 //
+// TODO: Removed hardcoded value for which bean is showing, use profile.avatar for image gen
+// TODO: Update color of save button and exit symbol in corner
 
 import SwiftUI
 
 struct MenuView: View {
     let profile: UserProfile
     var onBeginNewQuest: () -> Void
-    var onEditAvatar: () -> Void
     var onResumeQuest: () -> Void
     
     @State private var resumeQuest: Quest? = nil
+    @State private var showingEditProfile = false
 
     var body: some View {
         ZStack {
@@ -33,7 +35,7 @@ struct MenuView: View {
                         .shadow(radius: 0.2)
                     
                     Button("Edit Avatar") {
-                        onEditAvatar()
+                        showingEditProfile = true
                     }
                     .font(.subheadline)
                     .fontDesign(.monospaced)
@@ -86,6 +88,9 @@ struct MenuView: View {
         .padding()
         .task { resumeQuest = loadQuestToResume(for: profile) }
         }
+        .sheet(isPresented: $showingEditProfile) {
+            EditProfileView(profile: profile)
+        }
     }
     
     private func loadQuestToResume(for profile: UserProfile) -> Quest? {
@@ -109,7 +114,7 @@ extension UserProfile {
         MenuView(
             profile: .previewSample,
             onBeginNewQuest: { print("Begin new quest") },
-            onEditAvatar: { print("Edit avatar") },
+//            onEditAvatar: { print("Edit avatar") },
             onResumeQuest: { print("Resume quest") }
         )
         .padding()
