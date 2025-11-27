@@ -4,6 +4,7 @@
       "id": "q-first-day-of-school",
       "title": "First Day of School",
       "summary": "Practice for your first day school.",
+      "background": "classroom",
       "steps": [
         { "id": "s1", "text": "", "prompt": "" },
         { "id": "s2", "text": "", "prompt": "" },
@@ -14,6 +15,7 @@
       "id": "q-confrontation-with-a-friend",
       "title": "Confrontation with a Friend",
       "summary": "Think about emotions that come up during confrontations.",
+      "background": "playground",
       "steps": [
         { "id": "s1", "text": "", "prompt": "" },
         { "id": "s2", "text": "", "prompt": "" },
@@ -24,6 +26,7 @@
       "id": "q-losing-a-game",
       "title": "Losing a Game",
       "summary": "Learn about feelings when losing a game.",
+      "background": "classroom",
       "steps": [
         { "id": "s1", "text": "", "prompt": "" },
         { "id": "s2", "text": "", "prompt": "" },

@@ -64,15 +64,4 @@ struct SelectUserView: View {
             
         }
     }
-
-//    private var isValidName: Bool {
-//        !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-//    }
-//
-//    private func createIfValid() {
-//        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
-//        guard !trimmed.isEmpty else { return }
-//        onCreate(trimmed)
-//        name = ""
-//    }
 }

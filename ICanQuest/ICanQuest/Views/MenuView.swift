@@ -57,7 +57,6 @@ struct MenuView: View {
                     )
                 ) {
                     Text("Switch Profile")
-                        .font(.title3)
                         .fontDesign(.monospaced)
                 }
         }
