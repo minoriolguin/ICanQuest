@@ -3,7 +3,7 @@
 //  ICanQuest
 //
 //  Created by Minori Olguin on 2025-10-21.
-//
+// TODO: update font style & color
 
 import SwiftUI
 import SwiftData
