@@ -73,7 +73,7 @@ struct EditProfileView: View {
                         .padding()
                         
                         Button("Save") {
-                            dismiss()
+                            saveProfile()
                         }
                         .buttonStyle(.borderedProminent)
                         .disabled(selectedAvatar.isEmpty || username.isEmpty)
@@ -86,5 +86,36 @@ struct EditProfileView: View {
                 .padding()
             }
         }
+        .onAppear {
+            if username.isEmpty {
+                username = profile.name ?? ""
+            }
+            if selectedAvatar.isEmpty {
+                selectedAvatar = profile.avatar ?? ""
+            }
+        }
+
+        .overlay(alignment: .topTrailing) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.title)
+                    .padding()
+            }
+        }
+    }
+    
+    private func saveProfile() {
+        profile.name = username
+        profile.avatar = selectedAvatar
+        
+        do {
+            try ctx.save()
+        } catch {
+            print("Failed to save profile: \(error)")
+        }
+        
+        dismiss()
     }
 }

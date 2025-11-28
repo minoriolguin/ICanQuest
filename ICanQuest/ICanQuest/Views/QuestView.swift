@@ -31,7 +31,7 @@ class GameScene: SKScene {
         
         let mentortexture = SKTexture(imageNamed: "mentor-sprout")
         mentor = SKSpriteNode(texture: mentortexture)
-        mentor.setScale(0.2)
+        mentor.setScale(0.7)
         mentor.position = CGPoint(x: size.width / 3,
                                   y: size.height / 2.6)
         

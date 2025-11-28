@@ -4,16 +4,18 @@
 //
 //  Created by Minori Olguin on 2025-10-21.
 //
+// TODO: Removed hardcoded value for which bean is showing, use profile.avatar for image gen
+// TODO: Update color of save button and exit symbol in corner
 
 import SwiftUI
 
 struct MenuView: View {
     let profile: UserProfile
     var onBeginNewQuest: () -> Void
-    var onEditAvatar: () -> Void
     var onResumeQuest: () -> Void
     
     @State private var resumeQuest: Quest? = nil
+    @State private var showingEditProfile = false
 
     var body: some View {
         ZStack {
@@ -30,20 +32,39 @@ struct MenuView: View {
                         .font(.title)
                         .fontDesign(.monospaced)
                         .bold()
+                        .shadow(radius: 0.2)
                     
                     Button("Edit Avatar") {
-                        onEditAvatar()
+                        showingEditProfile = true
                     }
+                    .font(.subheadline)
+                    .fontDesign(.monospaced)
                     .foregroundColor(.black)
-                }
+                    .shadow(radius: 0.2)                }
             }
 
-                NavigationLink("Begin a new quest") {
-                    QuestListView(profile: profile)
+
+                
+                NavigationLink(destination: QuestListView(profile: profile)) {
+                    Text("Begin a new quest")
+                        .font(.title3.monospaced())
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 24)
+                        .foregroundColor(.black)
+                        .shadow(radius: 1, y: 2)
                 }
                 
-            Button("Resume quest") { }
-                .disabled(true)
+            Button {
+            }
+                label: {
+                    Text("Resume quest")
+                        .font(.title3.monospaced())
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 24)
+                        .foregroundColor(resumeQuest != nil ? .black : .gray)
+
+                }
+                .allowsHitTesting(resumeQuest != nil)
                 
                 NavigationLink(destination:
                     SelectUserView(
@@ -57,11 +78,18 @@ struct MenuView: View {
                     )
                 ) {
                     Text("Switch Profile")
-                        .fontDesign(.monospaced)
+                        .font(.title3.monospaced())
+                        .padding(.vertical, 6)
+                        .padding(.horizontal, 24)
+                        .foregroundColor(.black)
+                        .shadow(radius: 1, y: 2)
                 }
         }
         .padding()
         .task { resumeQuest = loadQuestToResume(for: profile) }
+        }
+        .sheet(isPresented: $showingEditProfile) {
+            EditProfileView(profile: profile)
         }
     }
     
@@ -86,7 +114,7 @@ extension UserProfile {
         MenuView(
             profile: .previewSample,
             onBeginNewQuest: { print("Begin new quest") },
-            onEditAvatar: { print("Edit avatar") },
+//            onEditAvatar: { print("Edit avatar") },
             onResumeQuest: { print("Resume quest") }
         )
         .padding()

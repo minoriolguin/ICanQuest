@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "splash-screen-no-text-no-beans.png",
+      "filename" : "background.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
