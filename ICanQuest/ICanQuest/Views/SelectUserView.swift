@@ -4,12 +4,16 @@
 //
 //  Created by Minori Olguin on 2025-10-25.
 //
-
+// TODO: make this close when the user selects the profile they want to play as
+// TODO: styling
+ 
 import SwiftUI
 import SwiftData
 
 struct SelectUserView: View {
     @Environment(\.modelContext) private var ctx
+    @Environment(\.dismiss) private var dismiss
+
     @Query(sort: \UserProfile.createdAt) private var profiles: [UserProfile]
 
     var onSelect: (UserProfile) -> Void
@@ -36,6 +40,7 @@ struct SelectUserView: View {
                         List(profiles) { p in
                             Button {
                                 onSelect(p)
+                                dismiss()
                             } label: {
                                 HStack {
                                     Text(p.name ??  "friend").font(.headline)
@@ -51,6 +56,7 @@ struct SelectUserView: View {
                     NavigationLink {
                         CreateProfileView { newProfile in
                             onSelect(newProfile)
+                            dismiss()
                         }
                     } label: {
                         Label("", systemImage: "plus.circle.fill")

@@ -60,6 +60,7 @@ struct AppRoot: View {
                 )
             }
         }
+        .environmentObject(app)
     }
 
     private func loadSelectedProfile() -> UserProfile? {

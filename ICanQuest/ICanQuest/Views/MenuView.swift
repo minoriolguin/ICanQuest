@@ -8,9 +8,12 @@
 // TODO: Update color of save button and exit symbol in corner
 
 import SwiftUI
+import SwiftData
 
 struct MenuView: View {
-    let profile: UserProfile
+    @EnvironmentObject private var app: AppStateStore
+    @Bindable var profile: UserProfile
+    
     var onBeginNewQuest: () -> Void
     var onResumeQuest: () -> Void
     
@@ -24,17 +27,26 @@ struct MenuView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
             
-            VStack(spacing: 20) {
             HStack {
-                if (profile.avatar != nil) { AvatarView() }
-                VStack(alignment: .leading) {
-                    Text("Welcome back, \(profile.name ?? "friend")!")
-                        .font(.title)
-                        .fontDesign(.monospaced)
-                        .bold()
-                        .shadow(radius: 0.2)
+                if let avatar = profile.avatar {
+                    Image(avatar)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 200, height: 300)
+                        .shadow(color: Color.black.opacity(0.2), radius: 10)
+                }
+            
+            VStack(spacing: 20) {
+                HStack {
+ 
+                    VStack(alignment: .leading) {
+                        Text("Welcome back, \(profile.name ?? "friend")!")
+                            .font(.title)
+                            .fontDesign(.monospaced)
+                            .bold()
+                            .shadow(radius: 0.2)
                     
-                    Button("Edit Avatar") {
+                    Button("Edit Profile") {
                         showingEditProfile = true
                     }
                     .font(.subheadline)
@@ -91,6 +103,8 @@ struct MenuView: View {
         .sheet(isPresented: $showingEditProfile) {
             EditProfileView(profile: profile)
         }
+        }
+
     }
     
     private func loadQuestToResume(for profile: UserProfile) -> Quest? {
@@ -105,7 +119,7 @@ struct MenuView: View {
 
 extension UserProfile {
     static var previewSample: UserProfile {
-        UserProfile(name: "friend", avatar: "")
+        UserProfile(name: "friend", avatar: "edamame")
     }
 }
 
@@ -114,7 +128,6 @@ extension UserProfile {
         MenuView(
             profile: .previewSample,
             onBeginNewQuest: { print("Begin new quest") },
-//            onEditAvatar: { print("Edit avatar") },
             onResumeQuest: { print("Resume quest") }
         )
         .padding()
