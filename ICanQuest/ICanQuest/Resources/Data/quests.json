@@ -5,10 +5,12 @@
       "title": "First Day of School",
       "summary": "Practice for your first day school.",
       "background": "classroom",
+      "visit": 0,
       "steps": [
-        { "id": "s1", "text": "", "prompt": "" },
-        { "id": "s2", "text": "", "prompt": "" },
-        { "id": "s3", "text": "", "prompt": "" }
+          { "id": "title", "text": "Welcome to your first Day of School!", "speaker": "mentor"},
+        { "id": "s1", "text": "", "speaker": "mentor" },
+        { "id": "s2", "text": "", "speaker": "user" },
+        { "id": "s3", "text": "", "speaker": "mentor" }
       ]
     },
     {
@@ -16,10 +18,11 @@
       "title": "Confrontation with a Friend",
       "summary": "Think about emotions that come up during confrontations.",
       "background": "playground",
+      "visit": 0,
       "steps": [
-        { "id": "s1", "text": "", "prompt": "" },
-        { "id": "s2", "text": "", "prompt": "" },
-        { "id": "s3", "text": "", "prompt": "" },
+        { "id": "s1", "text": "", "speaker": "" },
+        { "id": "s2", "text": "", "speaker": "" },
+        { "id": "s3", "text": "", "speaker": "" },
       ]
     },
     {
@@ -27,6 +30,7 @@
       "title": "Losing a Game",
       "summary": "Learn about feelings when losing a game.",
       "background": "classroom",
+      "visit": 0,
       "steps": [
         { "id": "s1", "text": "", "prompt": "" },
         { "id": "s2", "text": "", "prompt": "" },

@@ -30,15 +30,22 @@ struct QuestListView: View {
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
+            
+            VStack {
+                Text("Choose a quest")
+                    .font(.title2.monospaced())
+                    .foregroundColor(.black)
 
             NavigationStack {
                 content
-                    .navigationTitle("Choose a quest")
                     .task { loadQuests() }
+                Spacer()
             }
             .toolbarBackground(Color.clear, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+            }
         }
+
     }
 
     @ViewBuilder
@@ -59,7 +66,7 @@ struct QuestListView: View {
                         LocationCard(
                             title: "Go to School",
                             subtitle: "Practice school feelings",
-                            imageName: "classroom" // matches quest.background
+                            imageName: "classroom"
                         )
                     }
                 }
@@ -79,7 +86,6 @@ struct QuestListView: View {
         }
     }
 
-    // MARK: - Loading
     private func loadQuests() {
         defer { isLoading = false }
         guard let url = Bundle.main.url(forResource: "quests", withExtension: "json") else {
@@ -107,22 +113,26 @@ struct QuestListView: View {
             VStack {
                 Image(imageName)
                     .resizable()
-                    .frame(width: 200, height: 120)
+                    .frame(width: 320, height: 160)
                     .clipped()
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
-                        .font(.title2.weight(.bold))
-                        .foregroundColor(.white)
+                        .font(.title2.monospaced())
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.black)
                         .contentShape(Rectangle())
                 }
-                .padding()
             }
+            .frame(maxWidth: 320, maxHeight: 200)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            .shadow(radius: 8)
+                
             }
-            .padding()
+            .padding(.horizontal, 4)
+            .padding(.vertical, 4)
             .clipShape(RoundedRectangle(cornerRadius: 20))
+            .background(Color.white.opacity(0.6))
+            .cornerRadius(20)
         }
     }
 
