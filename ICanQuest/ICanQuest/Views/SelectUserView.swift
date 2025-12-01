@@ -6,6 +6,7 @@
 //
 // TODO: styling, make the buttons centered
 // TODO: styling, make the add new user in top left corner? or at least on the blue
+// TODO: styling, make the scroll bar always visible so users know its scrollable
  
 import SwiftUI
 import SwiftData

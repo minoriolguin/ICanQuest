@@ -29,7 +29,7 @@ class GameScene: SKScene {
         addChild(beanNode)
         self.bean = beanNode
         
-        let mentortexture = SKTexture(imageNamed: "mentor-sprout")
+        let mentortexture = SKTexture(imageNamed: "AppleTeacher")
         let mentorNode = SKSpriteNode(texture: mentortexture)
         mentorNode.setScale(0.7)
         mentorNode.position = CGPoint(x: size.width / 3,
@@ -156,9 +156,7 @@ struct QuestView: View {
     
     private var bottomPanel: some View {
             VStack(alignment: .leading, spacing: 12) {
-//                Text("Step \(currentStepIndex + 1) of \(quest.steps.count)")
-//                    .font(.caption.monospaced())
-//                    .foregroundColor(.secondary)
+
                 if currentStep.id == "title" {
                         Text(currentStep.text)
                         .font(.largeTitle.monospaced())

@@ -11,7 +11,6 @@ struct Quest: Identifiable, Codable, Hashable {
     let title: String
     let summary: String
     let background: String
-    var visit: Int?
     let steps: [QuestStep]
 }
 
