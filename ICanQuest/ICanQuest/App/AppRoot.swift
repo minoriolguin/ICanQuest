@@ -38,7 +38,6 @@ struct AppRoot: View {
                         MenuView(
                             profile: profile,
                             onBeginNewQuest: {  },
-//                            onEditAvatar: { editingAvatarFor = profile },
                             onResumeQuest: {
                                 handleResume(profile: profile) { q in
                                     resumeTarget = q

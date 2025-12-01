@@ -4,8 +4,8 @@
 //
 //  Created by Minori Olguin on 2025-10-25.
 //
-// TODO: make this close when the user selects the profile they want to play as
-// TODO: styling
+// TODO: styling, make the buttons centered
+// TODO: styling, make the add new user in top left corner? or at least on the blue
  
 import SwiftUI
 import SwiftData
@@ -42,14 +42,32 @@ struct SelectUserView: View {
                                 onSelect(p)
                                 dismiss()
                             } label: {
+                                Spacer()
+
                                 HStack {
+                                    Spacer()
+
                                     Text(p.name ??  "friend").font(.headline)
-                                    Image(systemName: "chevron.right")
-                                        .foregroundStyle(.secondary)
+                                        .foregroundColor(.black)
+                                    if let avatar = p.avatar, !avatar.isEmpty {
+                                        Image(avatar)
+                                            .resizable()
+                                            .frame(width: 35, height: 35)
+                                            .clipShape(Circle())
+                                    }
+
+                                    Spacer()
+
                                 }
+                                Spacer()
+
                             }
+                            .buttonStyle(.bordered)
+                            .frame(maxWidth: 200)
                             .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
                         }
+                        .listStyle(.plain)
                         .scrollContentBackground(.hidden)
                         .frame(maxHeight: 300)
                     }
@@ -60,10 +78,11 @@ struct SelectUserView: View {
                         }
                     } label: {
                         Label("", systemImage: "plus.circle.fill")
-                            .font(.title3)
-                            .fontDesign(.monospaced)
+                            .font(.title.monospaced())
+                            .foregroundColor(.black)
                             .padding()
                     }
+                    Spacer()
                 }
                 .padding()
             }
