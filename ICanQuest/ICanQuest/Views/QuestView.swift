@@ -162,7 +162,7 @@ struct QuestView: View {
                         .font(.largeTitle.monospaced())
                 }
                 
-                if !currentStep.text.isEmpty {
+                else if !currentStep.text.isEmpty {
                     Text(currentStep.text)
                         .font(.title2.monospaced())
                 }
