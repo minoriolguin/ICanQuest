@@ -12,7 +12,7 @@ struct WelcomeView: View {
         
     var body: some View {
         ZStack {
-            Image("splash-screen")
+            Image("LaunchLogo")
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()

@@ -28,11 +28,7 @@ struct EditProfileView: View {
             VStack {
                 VStack {
                     Text("Change character?")
-                        .font(
-                            .largeTitle
-                                .bold()
-                                .monospaced()
-                        )
+                        .font(.largeTitle.monospaced())
                     
 
                     HStack(spacing: 20) {
@@ -61,6 +57,7 @@ struct EditProfileView: View {
                         )
                         .font(.title3)
                         .lineLimit(3)
+                        .frame(maxWidth: 275)
                         .padding()
                         .fontDesign(.monospaced)
 
@@ -70,6 +67,9 @@ struct EditProfileView: View {
                             text: $username
                         )
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+//                        .background(Color.white.opacity(0.1))
+//                        TODO: make white a bit more transparent
+                        .frame(maxWidth: 225)
                         .padding()
                         
                         Button("Save") {
@@ -78,7 +78,11 @@ struct EditProfileView: View {
                         .buttonStyle(.borderedProminent)
                         .disabled(selectedAvatar.isEmpty || username.isEmpty)
                         .fontDesign(.monospaced)
+                        .foregroundColor(.black)
                         .padding()
+                        .padding(.horizontal, 6)
+                        
+                        Spacer()
                     }
                     
                     Spacer()
@@ -101,6 +105,7 @@ struct EditProfileView: View {
             } label: {
                 Image(systemName: "xmark.circle.fill")
                     .font(.title)
+                    .foregroundColor(.black)
                     .padding()
             }
         }

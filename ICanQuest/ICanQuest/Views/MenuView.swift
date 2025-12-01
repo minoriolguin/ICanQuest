@@ -4,13 +4,17 @@
 //
 //  Created by Minori Olguin on 2025-10-21.
 //
-// TODO: Removed hardcoded value for which bean is showing, use profile.avatar for image gen
+// TODO: Implement Resume Quest
 // TODO: Update color of save button and exit symbol in corner
 
 import SwiftUI
+import SwiftData
 
 struct MenuView: View {
-    let profile: UserProfile
+    @EnvironmentObject private var app: AppStateStore
+    @Environment(\.modelContext) private var ctx
+    @Bindable var profile: UserProfile
+    
     var onBeginNewQuest: () -> Void
     var onResumeQuest: () -> Void
     
@@ -23,74 +27,122 @@ struct MenuView: View {
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()
-            
-            VStack(spacing: 20) {
-            HStack {
-                if (profile.avatar != nil) { AvatarView() }
-                VStack(alignment: .leading) {
-                    Text("Welcome back, \(profile.name ?? "friend")!")
-                        .font(.title)
-                        .fontDesign(.monospaced)
-                        .bold()
-                        .shadow(radius: 0.2)
+                VStack {
+
+                HStack {
                     
-                    Button("Edit Avatar") {
-                        showingEditProfile = true
-                    }
-                    .font(.subheadline)
-                    .fontDesign(.monospaced)
-                    .foregroundColor(.black)
-                    .shadow(radius: 0.2)                }
-            }
-
-
-                
-                NavigationLink(destination: QuestListView(profile: profile)) {
-                    Text("Begin a new quest")
-                        .font(.title3.monospaced())
-                        .padding(.vertical, 6)
-                        .padding(.horizontal, 24)
-                        .foregroundColor(.black)
-                        .shadow(radius: 1, y: 2)
-                }
-                
-            Button {
-            }
-                label: {
-                    Text("Resume quest")
-                        .font(.title3.monospaced())
-                        .padding(.vertical, 6)
-                        .padding(.horizontal, 24)
-                        .foregroundColor(resumeQuest != nil ? .black : .gray)
-
-                }
-                .allowsHitTesting(resumeQuest != nil)
-                
                 NavigationLink(destination:
-                    SelectUserView(
-                        onSelect: { profile in
-                            print("Selected profile: \(profile.name ?? "unknown")")
-                        },
-                        onCreate: { name in
-
-                            print("Created profile named: \(name)")
-                        }
-                    )
+                                SelectUserView(
+                                    onSelect: { newProfile in
+                                        app.setSelectedProfile(newProfile)
+                                    },
+                                    onCreate: { name in
+                                        let p = UserProfile(name: name)
+                                        ctx.insert(p); try? ctx.save()
+                                        app.setSelectedProfile(p)
+                                    }
+                                )
                 ) {
                     Text("Switch Profile")
-                        .font(.title3.monospaced())
-                        .padding(.vertical, 6)
-                        .padding(.horizontal, 24)
+                        .multilineTextAlignment(.center)
+                        .font(.caption.monospaced())
+                        .padding(.vertical, 4)
+                                .padding(.horizontal, 4)
                         .foregroundColor(.black)
-                        .shadow(radius: 1, y: 2)
+                        .shadow(radius: 0.2)
+                        .multilineTextAlignment(.center)
                 }
-        }
-        .padding()
-        .task { resumeQuest = loadQuestToResume(for: profile) }
-        }
+                .frame(width: 90, height: 90)
+                .buttonStyle(.bordered)
+                .task { resumeQuest = loadQuestToResume(for: profile) }
+                Spacer()
+
+            
+            Button {
+                showingEditProfile = true
+            } label: {
+                Text("Edit profile")
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 4)
+                    .font(.caption.monospaced())
+                    .foregroundColor(.black)
+                    .shadow(radius: 0.2)
+                    .multilineTextAlignment(.center)
+
+            }
+            .frame(width: 90, height: 90)
+            .buttonStyle(.bordered)
+                    
+                }
+
+
+                HStack {
+                    
+                    Spacer()
+                    
+
+                    VStack {
+                        
+                    if let avatar = profile.avatar {
+                        Image(avatar)
+                            .resizable()
+                            .scaledToFill()
+                            .padding(.horizontal, 24)
+                            .frame(width: 100, height: 200)
+                            .shadow(color: Color.black.opacity(0.2), radius: 10)
+                    }
+                        Spacer()
+                    }
+
+
+
+
+                    
+                    VStack(alignment: .center, spacing: 4) {
+                        Text("Welcome back, \(profile.name ?? "friend")!")
+                            .font(.title)
+                            .padding(.vertical, 6)
+                            .padding(.horizontal, 12)
+                            .fontDesign(.monospaced)
+                            .bold()
+                            .shadow(radius: 0.2)
+                        
+                        NavigationLink(destination: QuestListView(profile: profile)) {
+                            Text("Begin a new quest")
+                                .font(.title3.monospaced())
+                                .padding(.vertical, 4)
+                                .padding(.horizontal, 12)
+                                .foregroundColor(.black)
+                                .shadow(radius: 0.2)
+                        }
+                        .buttonStyle(.bordered)
+                        
+                        Button {}
+                        label: {
+                            Text("Resume quest")
+                                .font(.title3.monospaced())
+                                .padding(.vertical, 4)
+                                .padding(.horizontal, 12)
+                        }
+                        .buttonStyle(.bordered)
+                        .disabled(resumeQuest != nil ? false : true)
+                        
+                        Spacer()
+                        
+                    }
+                    .padding(.horizontal, 48)
+                    Spacer()
+            }
         .sheet(isPresented: $showingEditProfile) {
             EditProfileView(profile: profile)
         }
+
+            Spacer()
+                }
+                .padding(40)
+                .padding(.horizontal, 12)
+        }
+        
     }
     
     private func loadQuestToResume(for profile: UserProfile) -> Quest? {
@@ -105,7 +157,7 @@ struct MenuView: View {
 
 extension UserProfile {
     static var previewSample: UserProfile {
-        UserProfile(name: "friend", avatar: "")
+        UserProfile(name: "friend", avatar: "kidney-bean-happy")
     }
 }
 
@@ -114,7 +166,6 @@ extension UserProfile {
         MenuView(
             profile: .previewSample,
             onBeginNewQuest: { print("Begin new quest") },
-//            onEditAvatar: { print("Edit avatar") },
             onResumeQuest: { print("Resume quest") }
         )
         .padding()

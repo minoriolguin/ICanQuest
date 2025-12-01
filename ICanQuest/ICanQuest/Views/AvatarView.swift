@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct AvatarView: View {
+    @Bindable var profile: UserProfile
+    
     var body: some View {
         ZStack {
-            Image("edamame")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 200, height: 200)
-                .shadow(color: Color.black.opacity(0.2), radius: 10)
+            if let avatar = profile.avatar {
+                Image(avatar)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .shadow(color: Color.black.opacity(0.2), radius: 10)
+            }
         }
-        .frame(width: 120, height: 120)
+        .frame(width: 100, height: 100)
     }
 }
 
 #Preview {
-    AvatarView()
+    AvatarView(profile: UserProfile(name: "friend", avatar: "edamame"))
 }
