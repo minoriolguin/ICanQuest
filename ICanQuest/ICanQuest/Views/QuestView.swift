@@ -267,9 +267,9 @@ struct QuestView: View {
             summary: "Just testing",
             background: "classroom",
             steps: [
-                QuestStep(id: "s1", text: "Sprout: Hey, how are you feeling today?", prompt: "Tell me about your day."),
-                QuestStep(id: "s2", text: "Sprout: That sounds tough.", prompt: "What could help you feel a bit better?"),
-                QuestStep(id: "s3", text: "Sprout: You did a great job sharing.", prompt: "Take a deep breath with me.")
+                QuestStep(id: "s1", text: "Sprout: Hey, how are you feeling today?", speaker: "Tell me about your day."),
+                QuestStep(id: "s2", text: "Sprout: That sounds tough.", speaker: "What could help you feel a bit better?"),
+                QuestStep(id: "s3", text: "Sprout: You did a great job sharing.", speaker: "Take a deep breath with me.")
             ]
         ))
     }
