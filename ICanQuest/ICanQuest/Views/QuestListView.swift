@@ -128,7 +128,7 @@ struct QuestListView: View {
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
                 
             }
-            .padding(.horizontal, 4)
+            .padding(.horizontal, 6)
             .padding(.vertical, 4)
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .background(Color.white.opacity(0.6))
