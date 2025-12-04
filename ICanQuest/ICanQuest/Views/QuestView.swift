@@ -164,8 +164,15 @@ struct QuestView: View {
             VStack(alignment: .leading, spacing: 12) {
 
                 if currentStep.id == "title" {
+                    HStack{
+                        Spacer()
                         Text(currentStep.text)
-                        .font(.largeTitle.monospaced())
+                            .font(.largeTitle.monospaced().bold())
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 16)
+                        Spacer()
+                    }
+
                 }
                 
                 else if !currentStep.text.isEmpty {
@@ -271,7 +278,7 @@ struct QuestView: View {
             summary: "Just testing",
             background: "classroom",
             steps: [
-                QuestStep(id: "s1", text: "Sprout: Hey, how are you feeling today?", speaker: "Tell me about your day."),
+                QuestStep(id: "title", text: "Welcome to your first day of school!", speaker: "Tell me about your day."),                QuestStep(id: "s1", text: "Sprout: Hey, how are you feeling today?", speaker: "Tell me about your day."),
                 QuestStep(id: "s2", text: "Sprout: That sounds tough.", speaker: "mentor"),
                 QuestStep(id: "s3", text: "Sprout: You did a great job sharing.", speaker: "bean")
             ]
