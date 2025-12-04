@@ -1,0 +1,38 @@
+{
+  "quests": [
+    {
+      "id": "q-first-day-of-school",
+      "title": "First Day of School",
+      "summary": "Practice for your first day school.",
+      "background": "classroom",
+      "steps": [
+        { "id": "title", "text": "Welcome to your first Day of School!", "speaker": "mentor"},
+        { "id": "s1", "text": "Hi Edamame, welcome to class!", "speaker": "mentor" },
+        { "id": "s2", "text": "How are you feeling today?", "speaker": "mentor", "options": ["happy", "sad", "lonely", "anxious"] },
+        { "id": "s3", "text": "Thanks for sharing!", "speaker": "mentor" }
+      ]
+    },
+    {
+      "id": "q-confrontation-with-a-friend",
+      "title": "Confrontation with a Friend",
+      "summary": "Think about emotions that come up during confrontations.",
+      "background": "playground",
+      "steps": [
+        { "id": "s1", "text": "", "speaker": "" },
+        { "id": "s2", "text": "", "speaker": "" },
+        { "id": "s3", "text": "", "speaker": "" }
+      ]
+    },
+    {
+      "id": "q-losing-a-game",
+      "title": "Losing a Game",
+      "summary": "Learn about feelings when losing a game.",
+      "background": "classroom",
+      "steps": [
+        { "id": "s1", "text": "", "speaker": "" },
+        { "id": "s2", "text": "", "speaker": "" },
+        { "id": "s3", "text": "", "speaker": "" }
+      ]
+    }
+  ]
+}

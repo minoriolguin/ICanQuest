@@ -11,4 +11,5 @@ struct QuestStep: Identifiable, Codable, Hashable {
     var id: String
     var text: String
     var speaker: String
+    var options: [String]?
 }

@@ -25,7 +25,7 @@ class GameScene: SKScene {
         let beanNode = SKSpriteNode(texture: texture)
         beanNode.setScale(0.85)
         beanNode.position = CGPoint(x: size.width * 3 / 4,
-                                    y: size.height / 2.6)
+                                    y: size.height / 2.8)
         addChild(beanNode)
         self.bean = beanNode
         
@@ -116,8 +116,8 @@ struct QuestView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State private var scene: GameScene = {
-        let s = GameScene(size: CGSize(width: 300, height: 300))
-        s.scaleMode = .resizeFill
+        let s = GameScene(size: CGSize(width: 800, height: 600))
+        s.scaleMode = .aspectFill
         return s
     }()
 
@@ -140,19 +140,23 @@ struct QuestView: View {
                 .ignoresSafeArea()
             
             SpriteView(scene: scene, options: [.allowsTransparency])
-                .frame(maxWidth: 800, maxHeight: 600)
-            
+                .frame(maxWidth: 800, maxHeight: 600)            
             VStack {
-
-                
                 bottomPanel
-                    .padding(.top, 8)
+                    .padding(.top, 20)
                     .padding(.horizontal, 24)
-                
+
                 Spacer()
-
             }
+            .ignoresSafeArea(edges: .top)
 
+        }
+        /*
+        added this because in the case next was not tappable
+        due to safe zone (top) we can remove this later
+         */
+        .onTapGesture {
+            advanceStep()
         }
         .onAppear {
             setupProgressIfNeeded()
@@ -179,29 +183,47 @@ struct QuestView: View {
                     Text(currentStep.text)
                         .font(.title2.monospaced())
                 }
-                                
-                HStack {
-                    if currentStepIndex > 0 {
-                        Button("Back") {
-                            goBack()
+
+                // Show dialogue options if available
+                if let options = currentStep.options, !options.isEmpty {
+                    HStack(spacing: 16) {
+                        ForEach(Array(options.enumerated()), id: \.element) { index, option in
+                            Button(option) {
+                                advanceStep()
+                            }
+                            .font(.title3.monospaced())
+                            .padding(.vertical, 14)
+                            .padding(.horizontal, 24)
+                            .background(optionColor(for: index))
+                            .cornerRadius(16)
+                            .foregroundColor(.black)
+                        }
+                    }
+                } else {
+                    // Show Back/Next buttons when no options
+                    HStack {
+                        if currentStepIndex > 0 {
+                            Button("Back") {
+                                goBack()
+                            }
+                            .font(.body.monospaced())
+                            .foregroundColor(.black)
+                        }
+
+                        Spacer()
+
+                        Button(isLastStep ? "Finish quest" : "Next") {
+                            advanceStep()
                         }
                         .font(.body.monospaced())
                         .foregroundColor(.black)
                     }
-                    
-                    Spacer()
-                    
-                    Button(isLastStep ? "Finish quest" : "Next") {
-                        advanceStep()
-                    }
-                    .font(.body.monospaced())
-                    .foregroundColor(.black)
                 }
             }
             .padding(20)
             .background(
                 RoundedRectangle(cornerRadius: 24)
-                    .fill(Color.white.opacity(0.85))
+                    .fill(Color.white.opacity(0.65))
             )
             .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 4)
         }
@@ -268,6 +290,16 @@ struct QuestView: View {
         
         private func playStepAnimation() {
             scene.beanTalk()
+        }
+
+        private func optionColor(for index: Int) -> Color {
+            let colors: [Color] = [
+                .yellow.opacity(0.5),
+                .blue.opacity(0.3),
+                .purple.opacity(0.3),
+                .orange.opacity(0.4)
+            ]
+            return colors[index % colors.count]
         }
     }
 
