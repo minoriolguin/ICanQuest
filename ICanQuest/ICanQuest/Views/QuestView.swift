@@ -223,7 +223,7 @@ struct QuestView: View {
             .padding(20)
             .background(
                 RoundedRectangle(cornerRadius: 24)
-                    .fill(Color.white.opacity(0.65))
+                    .fill(Color.white.opacity(0.75))
             )
             .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 4)
         }
