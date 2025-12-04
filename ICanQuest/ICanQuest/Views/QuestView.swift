@@ -140,13 +140,19 @@ struct QuestView: View {
                 .ignoresSafeArea()
             
             SpriteView(scene: scene, options: [.allowsTransparency])
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            Spacer()
-            Spacer()
+                .frame(maxWidth: 800, maxHeight: 600)
             
-            bottomPanel
-                .padding(.horizontal, 24)
+            VStack {
+
+                
+                bottomPanel
+                    .padding(.top, 8)
+                    .padding(.horizontal, 24)
+                
+                Spacer()
+
+            }
+
         }
         .onAppear {
             setupProgressIfNeeded()
@@ -266,8 +272,8 @@ struct QuestView: View {
             background: "classroom",
             steps: [
                 QuestStep(id: "s1", text: "Sprout: Hey, how are you feeling today?", speaker: "Tell me about your day."),
-                QuestStep(id: "s2", text: "Sprout: That sounds tough.", speaker: "What could help you feel a bit better?"),
-                QuestStep(id: "s3", text: "Sprout: You did a great job sharing.", speaker: "Take a deep breath with me.")
+                QuestStep(id: "s2", text: "Sprout: That sounds tough.", speaker: "mentor"),
+                QuestStep(id: "s3", text: "Sprout: You did a great job sharing.", speaker: "bean")
             ]
         ))
     }
