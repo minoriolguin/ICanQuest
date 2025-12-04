@@ -3,10 +3,6 @@
 //  ICanQuest
 //
 //  Created by Minori Olguin on 2025-10-25.
-//
-// TODO: styling, make the buttons centered
-// TODO: styling, make the add new user in top left corner? or at least on the blue
-// TODO: styling, make the scroll bar always visible so users know its scrollable
  
 import SwiftUI
 import SwiftData
@@ -37,51 +33,53 @@ struct SelectUserView: View {
                         .bold()
                         .fontDesign(.monospaced)
                     
-                    if !profiles.isEmpty {
-                        List(profiles) { p in
-                            Button {
-                                onSelect(p)
-                                dismiss()
-                            } label: {
-                                Spacer()
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            ForEach(profiles) { p in
+                                Button {
+                                    onSelect(p)
+                                    dismiss()
+                                } label: {
+                                    HStack {
+                                        Text(p.name ?? "friend")
+                                            .font(.headline)
+                                            .foregroundColor(.black)
 
-                                HStack {
-                                    Spacer()
-
-                                    Text(p.name ??  "friend").font(.headline)
-                                        .foregroundColor(.black)
-                                    if let avatar = p.avatar, !avatar.isEmpty {
-                                        Image(avatar)
-                                            .resizable()
-                                            .frame(width: 35, height: 35)
-                                            .clipShape(Circle())
+                                        if let avatar = p.avatar, !avatar.isEmpty {
+                                            Image(avatar)
+                                                .resizable()
+                                                .frame(width: 35, height: 35)
+                                                .clipShape(Circle())
+                                        }
                                     }
-
-                                    Spacer()
-
+                                    .frame(maxWidth: 400)
                                 }
-                                Spacer()
-
+                                .buttonStyle(.bordered)
                             }
-                            .buttonStyle(.bordered)
-                            .frame(maxWidth: 200)
-                            .listRowBackground(Color.clear)
-                            .listRowSeparator(.hidden)
                         }
-                        .listStyle(.plain)
-                        .scrollContentBackground(.hidden)
-                        .frame(maxHeight: 300)
+                        .frame(maxWidth: .infinity)
                     }
+                    
+                    if profiles.count > 2 {
+                        Image(systemName: "chevron.down")
+                            .font(.title3.weight(.bold))
+                            .foregroundColor(.black.opacity(0.7))
+                            .padding(.bottom, 5)
+                            .opacity(0.9)
+                    }
+                    
                     NavigationLink {
                         CreateProfileView { newProfile in
                             onSelect(newProfile)
                             dismiss()
                         }
                     } label: {
-                        Label("", systemImage: "plus.circle.fill")
-                            .font(.title.monospaced())
+                        Image(systemName: "plus.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 42, height: 42)
                             .foregroundColor(.black)
-                            .padding()
+                            .shadow(color: .white.opacity(0.6), radius: 6)
                     }
                     Spacer()
                 }
