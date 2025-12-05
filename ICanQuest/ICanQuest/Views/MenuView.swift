@@ -153,9 +153,7 @@ struct MenuView: View {
     
     private func loadQuestToResume(for profile: UserProfile) -> Quest? {
         guard let qp = profile.activeProgress else { return nil }
-        // Using test-quests.json during development to avoid modifying production data
-        // guard let url = Bundle.main.url(forResource: "quests", withExtension: "json"),
-        guard let url = Bundle.main.url(forResource: "test-quests", withExtension: "json"),
+        guard let url = Bundle.main.url(forResource: "quests", withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let file = try? JSONDecoder().decode(QuestFile.self, from: data) else { return nil }
         return file.quests.first { $0.id == qp.questId }

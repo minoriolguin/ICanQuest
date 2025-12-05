@@ -78,9 +78,7 @@ struct AppRoot: View {
     }
 
     private func loadAllQuests() -> [Quest] {
-        // Using test-quests.json during development to avoid modifying production data
-        // guard let url = Bundle.main.url(forResource: "quests", withExtension: "json"),
-        guard let url = Bundle.main.url(forResource: "test-quests", withExtension: "json"),
+        guard let url = Bundle.main.url(forResource: "quests", withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let file = try? JSONDecoder().decode(QuestFile.self, from: data)
         else { return [] }

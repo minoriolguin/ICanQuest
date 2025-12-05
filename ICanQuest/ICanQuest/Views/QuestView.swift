@@ -259,13 +259,10 @@ struct QuestView: View {
 
             // Quest finished overlay
             if showingFinishScreen {
-                Color.black
-                    .opacity(finishScreenOpacity)
+                Image("questcomplete")
+                    .resizable()
+                    .scaledToFill()
                     .ignoresSafeArea()
-
-                Text("QUEST FINISHED!")
-                    .font(.largeTitle.monospaced().bold())
-                    .foregroundColor(.white)
                     .opacity(finishScreenOpacity)
             }
         }

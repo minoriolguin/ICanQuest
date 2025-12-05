@@ -88,10 +88,8 @@ struct QuestListView: View {
 
     private func loadQuests() {
         defer { isLoading = false }
-        // Using test-quests.json during development to avoid modifying production data
-        // guard let url = Bundle.main.url(forResource: "quests", withExtension: "json") else {
-        guard let url = Bundle.main.url(forResource: "test-quests", withExtension: "json") else {
-            errorMessage = "test-quests.json not found in bundle."
+        guard let url = Bundle.main.url(forResource: "quests", withExtension: "json") else {
+            errorMessage = "quests.json not found in bundle."
             return
         }
         do {

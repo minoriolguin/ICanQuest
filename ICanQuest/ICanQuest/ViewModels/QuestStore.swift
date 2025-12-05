@@ -17,9 +17,7 @@ final class QuestStore: ObservableObject {
         errorMessage = nil
         Task {
             do {
-                // Using test-quests.json during development to avoid modifying production data
-                // let data = try loadResource(named: "quests", ext: "json")
-                let data = try loadResource(named: "test-quests", ext: "json")
+                let data = try loadResource(named: "quests", ext: "json")
                 let decoded = try decodeQuestsFile(from: data)
                 try validate(decoded.quests)
                 quests = decoded.quests
