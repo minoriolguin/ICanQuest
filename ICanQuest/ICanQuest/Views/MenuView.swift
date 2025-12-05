@@ -117,15 +117,21 @@ struct MenuView: View {
                         }
                         .buttonStyle(.bordered)
                         
-                        Button {}
-                        label: {
+                        // Navigate to QuestView with saved progress if a quest is in progress
+                        NavigationLink(destination: Group {
+                            if let quest = resumeQuest {
+                                QuestView(quest: quest, profileId: profile.id)
+                            }
+                        }) {
                             Text("Resume quest")
                                 .font(.title3.monospaced())
                                 .padding(.vertical, 4)
                                 .padding(.horizontal, 12)
+                                .foregroundColor(resumeQuest == nil ? .gray : .black)
+                                .shadow(radius: 0.2)
                         }
                         .buttonStyle(.bordered)
-                        .disabled(resumeQuest != nil ? false : true)
+                        .disabled(resumeQuest == nil)
                         
                         Spacer()
                         

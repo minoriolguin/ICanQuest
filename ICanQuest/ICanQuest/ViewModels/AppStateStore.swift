@@ -12,7 +12,7 @@ import Combine
 final class AppStateStore: ObservableObject {
     @Published var didShowWelcome: Bool = false
     @Published var selectedProfileId: String?
-    
+
     private let d = UserDefaults.standard
     private let selKey = "selectedProfileId"
 

@@ -6,10 +6,13 @@
       "summary": "Practice for your first day school.",
       "background": "classroom",
       "steps": [
-          { "id": "title", "text": "Welcome to your first Day of School!", "speaker": "mentor"},
-        { "id": "s1", "text": "", "speaker": "mentor" },
-        { "id": "s2", "text": "", "speaker": "user" },
-        { "id": "s3", "text": "", "speaker": "mentor" }
+        { "id": "title", "text": "Welcome to your first Day of School!", "speaker": "mentor"},
+        { "id": "s1", "text": "Hi {name}, welcome to class!", "speaker": "mentor" },
+        { "id": "s2", "text": "Hi Teacher!", "speaker": "bean" },
+        { "id": "s3", "text": "How are you feeling today?", "speaker": "mentor", "options": ["happy", "sad", "lonely", "anxious"], "followUpQuestion": "What is making you {option}?", "responses": {"happy": "I'm so glad to hear that!", "sad": "I'm sorry you're sad, talk to me if you need any help!", "lonely": "I'm here for you, you're not alone.", "anxious": "It's okay to feel anxious. Take a deep breath."}, "followUpResponses": {"happy": "I'm so glad you love {input}!", "sad": "I'm sorry {input} is making you sad. Talk to me if you need any help!", "lonely": "I understand. {input} can make anyone feel lonely. I'm here for you!", "anxious": "{input} can be stressful. Take a deep breath, you've got this!"} },
+        { "id": "s4", "text": "Thank you for sharing!", "speaker": "mentor" },
+        { "id": "s5", "text": "Hi, I'm Kidney! What's your name?", "speaker": "mentor", "speakerName": "Kidney", "changeNPC": "kidney-bean-happy", "textInputResponse": "My name is {input}!" },
+        { "id": "s6", "text": "What do you want to ask Kidney?", "speaker": "bean", "options": ["Do you want to sit together?", "Do you want to be friends?", "Can we talk another time?"], "responses": {"Do you want to sit together?": "Kidney, do you want to sit next to me?", "Do you want to be friends?": "Kidney, do you want to be friends with me?", "Can we talk another time?": "Kidney, can we talk another time?"}, "npcResponses": {"Do you want to sit together?": "Sure, let's go sit!", "Do you want to be friends?": "I would love to be friends!", "Can we talk another time?": "We can talk anytime you want!"}, "npcResponseSpeaker": "Kidney" }
       ]
     },
     {
@@ -20,7 +23,7 @@
       "steps": [
         { "id": "s1", "text": "", "speaker": "" },
         { "id": "s2", "text": "", "speaker": "" },
-        { "id": "s3", "text": "", "speaker": "" },
+        { "id": "s3", "text": "", "speaker": "" }
       ]
     },
     {
@@ -31,7 +34,7 @@
       "steps": [
         { "id": "s1", "text": "", "speaker": "" },
         { "id": "s2", "text": "", "speaker": "" },
-        { "id": "s3", "text": "", "speaker": "" },
+        { "id": "s3", "text": "", "speaker": "" }
       ]
     }
   ]
